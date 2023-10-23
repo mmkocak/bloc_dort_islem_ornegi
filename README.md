@@ -1,6 +1,6 @@
-# bloc_kullanimi2
+# Bloc Cubit kullanım örneği
 
-A new Flutter project.
+Merhaba👋 Bloc Pattern Cubit ile ilgili çok basit bir örnek yaptım , bu örneğin amacı bloc cubit yapısını merak edenler ve öğrenmek isteyenler için basit bir örnek oluşturmak. uygulamada bol yorum satırı kullandım keyifli projeler
 
 ## Getting Started
 
