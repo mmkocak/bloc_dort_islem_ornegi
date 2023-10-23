@@ -1,4 +1,6 @@
+import 'package:bloc_kullanimi2/process.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Anasayfa extends StatefulWidget {
   const Anasayfa({Key? key}) : super(key: key);
@@ -10,8 +12,6 @@ class Anasayfa extends StatefulWidget {
 class _AnasayfaState extends State<Anasayfa> {
   var tfsayi1 = TextEditingController();
   var tfsayi2 = TextEditingController();
-
-  int sonuc = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,10 +24,15 @@ class _AnasayfaState extends State<Anasayfa> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                sonuc.toString(),
-                style: TextStyle(fontSize: 30),
+              BlocBuilder<HomeC, double>(
+                builder: (context, sonuc){
+                  return Text(
+                    sonuc.toString(),
+                    style: TextStyle(fontSize: 30),
+                  );
+                },
               ),
+
               TextField(
                 controller: tfsayi1,
                 decoration: InputDecoration(hintText: "Sayı 1"),
@@ -44,12 +49,7 @@ class _AnasayfaState extends State<Anasayfa> {
                       onPressed: () {
                         String alinanSayi1 = tfsayi1.text;
                         String alinanSayi2 = tfsayi2.text;
-                        int sayi1= int.parse(alinanSayi1);
-                        int sayi2 = int.parse(alinanSayi2);
-                        int topla= sayi1+sayi2;
-                        setState(() {
-                          sonuc = topla;
-                        });
+                        context.read<HomeC>().toplamaYap(alinanSayi1, alinanSayi2);
                       },
                     ),
                   ),
@@ -59,17 +59,37 @@ class _AnasayfaState extends State<Anasayfa> {
                       onPressed: () {
                         String alinansayi1 = tfsayi1.text;
                         String alinansayi2 =tfsayi2.text;
-                        int sayi1 = int.parse(alinansayi1);
-                        int sayi2 = int.parse(alinansayi2);
-                        int carp = sayi1 * sayi2;
-                        setState(() {
-                          sonuc = carp;
-                        });
+                        context.read<HomeC>().carpmaYap(alinansayi1, alinansayi2);
                       },
                     ),
                   ),
                 ],
               ),
+             // SizedBox(height: 10,),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      child: Text("Çıkarma"),
+                      onPressed: () {
+                        String alinanSayi1 = tfsayi1.text;
+                        String alinanSayi2 = tfsayi2.text;
+                        context.read<HomeC>().cikarmaYap(alinanSayi1, alinanSayi2);
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      child: Text("Bölme "),
+                      onPressed: () {
+                        String alinanSayi1 = tfsayi1.text;
+                        String alinanSayi2 = tfsayi2.text;
+                        context.read<HomeC>().bolmeYap(alinanSayi1, alinanSayi2);
+                      },
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
